@@ -1,136 +1,126 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  StatusBar,
-} from 'react-native';
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ */
+
+import React, { useState } from 'react';
+import { Button, StyleSheet, View, Text, TextInput } from 'react-native';
 
 export default function App() {
-  return (
-    <View style={styles.safeArea}>
-      <StatusBar barStyle="light-content" backgroundColor="#121212" />
-      <ScrollView style={styles.container}>
-        <View style={styles.profileHeader}>
-          <Image
-            source={{ uri: 'https://picsum.photos/150/150?random=99' }}
-            style={styles.avatar}
-          />
-          <Text style={styles.profileName}>Gamlank</Text>
-          <Text style={styles.profileBadge}>Member Premium</Text>
-        </View>
 
-        <View style={styles.statsRow}>
-          <View style={styles.statBox}>
-            <Text style={styles.statNumber}>12</Text>
-            <Text style={styles.statLabel}>Playlist</Text>
-          </View>
-          <View style={styles.statBox}>
-            <Text style={styles.statNumber}>148</Text>
-            <Text style={styles.statLabel}>Disukai</Text>
-          </View>
-          <View style={styles.statBox}>
-            <Text style={styles.statNumber}>35</Text>
-            <Text style={styles.statLabel}>Artis</Text>
-          </View>
-        </View>
+    const tmpObject = {
+        nama: 'Unipda',
+        tahun: 2026
+    }
+    const angka = [10, 20, 30, 40, 50]
 
-        <Text style={styles.sectionTitle}>Pengaturan</Text>
-        <View style={styles.menuList}>
-          <TouchableOpacity style={styles.menuItem}>
-            <Text style={styles.menuText}>Kualitas Audio</Text>
-            <Text style={styles.menuValue}>Tinggi</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.menuItem}>
-            <Text style={styles.menuText}>Mode Hemat Data</Text>
-            <Text style={styles.menuValue}>Matikan</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.menuItem}>
-            <Text style={styles.menuText}>Akun & Keamanan</Text>
-            <Text style={styles.menuValue}>›</Text>
-          </TouchableOpacity>
+    const variableString = 'Aku cinta INDONESIA'
+    const [nilaiAwal, setnilaiAwal] = useState(0)
+    const [nilaiString, setnilaiString] = useState(variableString)
+    const [name, setName] = useState('Galang')
+    const [show, setShow] = useState(false);
+    const [stateObject, setStateObject] = useState(tmpObject)
+    const [arstate, setArstate] = useState(angka)
+
+    const functionTambah = () => {
+        setnilaiAwal(nilaiAwal + 1)
+    }
+
+    const functionSeratus = () => {
+        setnilaiAwal(nilaiAwal + 100)
+        setnilaiString('Aku Cinta Sidoarjo')
+    }
+
+    const ubah = () => {
+        setStateObject({
+            ...stateObject,
+            nama: 'Unipda Jaya',
+            tahun: 2029
+        })
+    }
+
+    return (
+        <View style={style.container}>
+            {
+                arstate.map((v,i)=>{
+                    return(
+                        <View>
+                            <Text style={{fontSize: 40}}>
+                                {v}
+                            </Text>
+                        </View>
+                    )
+                })
+            }
+            
+            <Button
+                // onPress={angka}
+                onPress={()=>setArstate([...arstate, 60])}
+                title="TAMBAH 60"
+                color="#2e3068"
+            />
+            <Text style={style.subtitle}>{angka[0]}</Text>
+            <Text style={style.subtitle}>{nilaiAwal}</Text>
+            <Text style={style.subtitle}>{nilaiString}</Text>
+            <Text style={style.subtitle}>{stateObject.nama}</Text>
+            <Text style={style.subtitle}>{stateObject.tahun}</Text>
+            <Button
+                onPress={ubah}
+                title="JAYA JAYA JAYA"
+                color="#000361"
+            />
+
+            <TextInput
+                placeholder="Masukkan Nama."
+                value={name}
+                onChangeText={setName}
+                style={{ borderWidth: 1, padding: 10 }}
+            />
+            <Text style={{ marginTop: 16 }}>
+                Halo, {name || 'Tamu'}!
+            </Text>
+
+            <Button
+                onPress={() => setShow(!show)}
+                title={show ? 'Sembunyikan' : 'Tampilkan'}
+                color="#2d5489"
+            />
+            {show && (
+                <Text style={{ marginTop: 10 }}>
+                    Rahasia perusahaan tampil disini!
+                </Text>
+            )}
+
+            <Button
+                // onPress={()=> setnilaiAwal(nilaiAwal + 1)}
+                onPress={functionTambah}
+                title="Tambah 1"
+                color="#022d00"
+            />
+            <Button
+                // onPress={()=> setnilaiAwal(nilaiAwal + 1)}
+                onPress={functionSeratus}
+                title="All in One"
+                color="#006aff"
+            />
+
+            <Button
+                onPress={() => setnilaiAwal(0)}
+                title="Reset Angka"
+                color="#ff0000"
+            />
+            <Button
+                onPress={() => setnilaiString('Aku cinta')}
+                title="Aku Cinta"
+                color="#5a97ff"
+            />
         </View>
-      </ScrollView>
-    </View>
-  );
+    );
 }
 
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: '#121212',
-  },
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-  profileHeader: {
-    alignItems: 'center',
-    marginVertical: 20,
-  },
-  avatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginBottom: 10,
-  },
-  profileName: {
-    color: '#FFFFFF',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  profileBadge: {
-    color: '#1DB954',
-    fontSize: 12,
-    marginTop: 2,
-  },
-  statsRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: '#1E1E1E',
-    paddingVertical: 15,
-    borderRadius: 10,
-    marginBottom: 20,
-  },
-  statBox: {
-    alignItems: 'center',
-  },
-  statNumber: {
-    color: '#FFFFFF',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  statLabel: {
-    color: '#B3B3B3',
-    fontSize: 12,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-    marginTop: 15,
-    marginBottom: 10,
-  },
-  menuList: {
-    backgroundColor: '#1E1E1E',
-    borderRadius: 10,
-  },
-  menuItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#2A2A2A',
-  },
-  menuText: {
-    color: '#FFFFFF',
-    fontSize: 14,
-  },
-  menuValue: {
-    color: '#B3B3B3',
-    fontSize: 14,
-  },
-});
+const style = StyleSheet.create({
+    container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+    subtitle: { fontSize: 50, color: '#000000', marginTop: 4 },
+})
