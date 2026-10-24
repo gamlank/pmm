@@ -16,6 +16,14 @@ export default function App() {
     }
     const angka = [10, 20, 30, 40, 50]
 
+    const [form, setForm] = useState({
+        nama: '', email: ''
+    });
+
+    const updateField = (field: string, value: string) => {
+        setForm({ ...form, [field]: value });
+    };
+
     const variableString = 'Aku cinta INDONESIA'
     const [nilaiAwal, setnilaiAwal] = useState(0)
     const [nilaiString, setnilaiString] = useState(variableString)
@@ -42,8 +50,33 @@ export default function App() {
     }
 
     return (
+
         <View style={style.container}>
-            {
+
+            <TextInput
+                style={{
+                    height: 40,
+                    margin: 12,
+                    borderWidth: 1,
+                    padding: 10,
+                }}
+                onChangeText={(v) => updateField('nama', v)}
+                value={form.nama}
+                placeholder="useless placeholder"
+            />
+            <TextInput
+                style={{
+                    height: 40,
+                    margin: 12,
+                    borderWidth: 1,
+                    padding: 10,
+                }}
+                onChangeText={(v) => updateField('email', v)}
+                value={form.email}
+                placeholder="useless placeholder"
+            />
+
+            {/* {
                 arstate.map((v,i)=>{
                     return(
                         <View>
@@ -60,9 +93,9 @@ export default function App() {
                 onPress={()=>setArstate([...arstate, 60])}
                 title="TAMBAH 60"
                 color="#2e3068"
-            />
-            <Text style={style.subtitle}>{angka[0]}</Text>
-            <Text style={style.subtitle}>{nilaiAwal}</Text>
+            /> */}
+            {/* <Text style={style.subtitle}>{angka[0]}</Text> */}
+            {/* <Text style={style.subtitle}>{nilaiAwal}</Text>
             <Text style={style.subtitle}>{nilaiString}</Text>
             <Text style={style.subtitle}>{stateObject.nama}</Text>
             <Text style={style.subtitle}>{stateObject.tahun}</Text>
@@ -115,7 +148,7 @@ export default function App() {
                 onPress={() => setnilaiString('Aku cinta')}
                 title="Aku Cinta"
                 color="#5a97ff"
-            />
+            /> */}
         </View>
     );
 }
